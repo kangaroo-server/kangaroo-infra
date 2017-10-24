@@ -1,0 +1,7 @@
+---
+region: us-west-1
+instance_type: m3.medium
+subnet: subnet-c923c292
+ubuntu_codename: zesty
+ami_name: "Ansible-Jenkins-Slave-{{ ansible_date_time.iso8601 | regex_replace(':', '-')}}"
+ami_tag: "Ansible-Jenkins-Slave"

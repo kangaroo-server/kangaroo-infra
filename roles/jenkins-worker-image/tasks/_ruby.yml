@@ -1,0 +1,19 @@
+---
+- name: Install Required APT tools
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+  - ruby
+  - ruby-dev
+  - libxml2
+  - zlibc
+  - zlib1g-dev
+
+- name: Install Required Ruby tools
+  gem:
+    name: "{{item}}"
+    state: latest
+  with_items:
+  - bundler
+  - jekyll

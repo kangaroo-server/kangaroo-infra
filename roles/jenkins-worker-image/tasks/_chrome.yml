@@ -1,0 +1,24 @@
+---
+- name: Add the repository key
+  apt_key:
+    url: "https://dl-ssl.google.com/linux/linux_signing_key.pub"
+    state: present
+
+- name: Add the repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
+    state: present
+    update_cache: yes
+
+- name: Install chrome
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+  - google-chrome-stable
+
+- name: Install Chrome Driver
+  unarchive:
+    src: https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip
+    dest: /usr/local/bin
+    remote_src: yes

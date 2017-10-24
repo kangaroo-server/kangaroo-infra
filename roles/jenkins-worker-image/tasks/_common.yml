@@ -1,0 +1,19 @@
+---
+- name: Apt Update
+  apt:
+    update_cache: yes
+    upgrade: dist
+    cache_valid_time: 86400
+
+- name: Install Required APT tools
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - unzip
+  - make
+  - gcc
+  - software-properties-common

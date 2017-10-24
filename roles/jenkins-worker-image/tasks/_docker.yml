@@ -1,0 +1,39 @@
+---
+- name: Uninstall old versions
+  tags: docker
+  apt:
+    name: "{{item}}"
+    state: absent
+    purge: yes
+  with_items:
+  - docker
+  - docker-engine
+  - docker.io
+
+- name: Add the repository key
+  tags: docker
+  apt_key:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    state: present
+
+- name: Add the repository
+  tags: docker
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ubuntu_codename}} stable"
+    state: present
+    update_cache: yes
+
+- name: Install docker
+  tags: docker
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+  - docker-ce
+  - python-docker
+
+- name: Add ubuntu to the docker group
+  user:
+    name: ubuntu
+    groups: docker
+    append: yes

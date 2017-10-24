@@ -1,0 +1,57 @@
+---
+- name: Install Packages
+  apt: name={{item}}
+       state=present
+  with_items:
+  - python-mysqldb
+  - mysql-server
+  - mysql-client
+
+- name: Generate a random password for mysql root
+  set_fact:
+    mysql_root_password: "{{ lookup('password', '~/mysql_root_password length=15') }}"
+
+- name: Create .my.cnf for future ansible invocations
+  template:
+    src: .my.cnf
+    dest: /root/.my.cnf
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Create .my.cnf for the ubuntu user
+  template:
+    src: .my.cnf
+    dest: ~ubuntu/.my.cnf
+    owner: ubuntu
+    group: ubuntu
+    mode: 0600
+
+- name: Set Root Passwords
+  mysql_user:
+    name: root
+    password: "{{mysql_root_password}}"
+    host: "{{item}}"
+    state: present
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: Clear Anonymous Users
+  mysql_user:
+    user: ""
+    host: "{{item}}"
+    state: absent
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: Remove Test Database
+  mysql_db:
+    db: test
+    state: absent
+
+- name: Hard-update the root user.
+  shell: "mysql -uroot -e \"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password by '{{mysql_root_password}}'\""
