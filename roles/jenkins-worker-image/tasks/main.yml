@@ -1,11 +1,11 @@
 ---
 - name: Find the most recent ubuntu AMI
   ec2_ami_find:
-    name: "ubuntu/images/ebs-ssd/ubuntu-{{ubuntu_codename}}-17.04-amd64*"
+    name: "ubuntu/images/hvm-ssd/ubuntu-{{ubuntu_codename}}-17.04-amd64*"
     owner: 099720109477
     region: "{{region}}"
     architecture: x86_64
-    virtualization_type: paravirtual
+    virtualization_type: hvm
     sort: creationDate
     sort_order: descending
     sort_end: 1
