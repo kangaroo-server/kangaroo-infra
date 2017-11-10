@@ -25,6 +25,9 @@
 
 - name: Install yarn
   npm:
-    name: yarn
+    name: "{{item}}"
     global: yes
     state: latest
+  with_items:
+  - yarn
+  - lerna

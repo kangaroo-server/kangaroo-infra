@@ -1,12 +1,12 @@
 ---
-- include: _python.yml
-- include: _common.yml
-- include: _ruby.yml
-- include: _java.yml
-- include: _chrome.yml
-- include: _docker.yml
-- include: _node.yml
-- include: _mysql.yml
+- import_tasks: _python.yml
+- import_tasks: _common.yml
+- import_tasks: _hugo.yml
+- import_tasks: _java.yml
+- import_tasks: _chrome.yml
+- import_tasks: _docker.yml
+- import_tasks: _node.yml
+- import_tasks: _mysql.yml
 
 - name: Cleanup
   apt:

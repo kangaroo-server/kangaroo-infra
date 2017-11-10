@@ -1,3 +1,11 @@
 ---
 - name: Install Python
   raw: test -e /usr/bin/python || apt-get install -y python
+
+- name: Install Packages
+  apt:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  with_items:
+  - python-pip

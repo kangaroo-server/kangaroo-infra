@@ -16,6 +16,8 @@
     state: latest
   with_items:
   - google-chrome-stable
+  - chromium-browser
+  - libxi6
 
 - name: Install Chrome Driver
   unarchive:

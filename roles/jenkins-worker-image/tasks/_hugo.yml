@@ -1,0 +1,9 @@
+---
+- name: Install Hugo
+  shell: snap install hugo
+
+- name: Install Pygments
+  pip: name={{item}}
+       state=present
+  with_items:
+  - Pygments
