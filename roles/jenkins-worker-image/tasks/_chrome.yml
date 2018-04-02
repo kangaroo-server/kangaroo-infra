@@ -17,10 +17,12 @@
   with_items:
   - google-chrome-stable
   - chromium-browser
+  # Chromedriver requirements.
   - libxi6
+  - libgconf-2-4
 
 - name: Install Chrome Driver
   unarchive:
-    src: https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip
+    src: "https://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip"
     dest: /usr/local/bin
     remote_src: yes
